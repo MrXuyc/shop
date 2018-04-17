@@ -32,9 +32,7 @@ public class ShippingController {
     @ResponseBody
     public ServerResponse add (HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
-        }
+
         return shippingService.addShipping(user.getId(),shipping);
     }
 
@@ -42,9 +40,7 @@ public class ShippingController {
     @ResponseBody
     public ServerResponse delete (HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
-        }
+
         return shippingService.deleteShipping(user.getId(),shippingId);
     }
 
@@ -52,9 +48,7 @@ public class ShippingController {
     @ResponseBody
     public ServerResponse update (HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
-        }
+
         return shippingService.updateShipping(user.getId(),shipping);
     }
 
@@ -62,9 +56,7 @@ public class ShippingController {
     @ResponseBody
     public ServerResponse select (HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
-        }
+
         return shippingService.selectShipping(user.getId(),shippingId);
     }
 
@@ -74,9 +66,7 @@ public class ShippingController {
               @RequestParam(value = "pageNum" ,defaultValue = "1") int pageNum,
               @RequestParam(value = "pageSize" ,defaultValue = "10") int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
-        }
+
         return shippingService.listShipping(user.getId(),pageNum,pageSize);
     }
 }

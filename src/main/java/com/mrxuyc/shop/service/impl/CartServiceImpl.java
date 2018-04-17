@@ -32,7 +32,7 @@ public class CartServiceImpl implements ICartService{
         if(productId==null||count==null){
             return ServerResponse.createByErrorCodeMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        Cart cart=cartMapper.selectCartByUserId(userId,productId);
+        Cart cart=cartMapper.selectCartByUserIdAndProductId(userId,productId);
         if (cart==null){
             Cart cartItem  =new Cart();
             cartItem.setQuantity(count);
@@ -53,7 +53,7 @@ public class CartServiceImpl implements ICartService{
         if(productId==null||count==null){
             return ServerResponse.createByErrorCodeMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        Cart cart=cartMapper.selectCartByUserId(userId,productId);
+        Cart cart=cartMapper.selectCartByUserIdAndProductId(userId,productId);
         if (cart!=null){
             cart.setQuantity(count);
         }

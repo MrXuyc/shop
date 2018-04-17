@@ -185,7 +185,7 @@
 
   <select id="selectByNameAndProductId" resultMap="BaseResultMap">
     SELECT 
-    <include refid="Base_Cloumn_List"/>
+    <include refid="Base_Column_List"/>
     from mmall_product
     <where>
       <if test="productName != null" >
@@ -199,7 +199,7 @@
 
   <select id="selectByNameAndCategoryId" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Cloumn_List"/>
+    <include refid="Base_Column_List"/>
     from mmall_product
     <where>
       <if test="productName != null" >

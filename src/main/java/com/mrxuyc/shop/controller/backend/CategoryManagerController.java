@@ -24,65 +24,28 @@ public class CategoryManagerController {
     @Autowired
     private ICategoryService categoryService;
 
-    @RequestMapping(value = "add_category.do",method = RequestMethod.POST)
+    @RequestMapping(value = "add_category.do")
     @ResponseBody
     public ServerResponse addCategory(HttpSession session,String categoryName,@RequestParam(value = "parentId",defaultValue = "0") Integer parentId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return categoryService.addCategory(categoryName,parentId);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "set_category_name.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setCategoryName(HttpSession session,String categoryName, Integer categoryId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return categoryService.setCategoryName(categoryName,categoryId);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "get_category.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getChildrenParallelCategory(HttpSession session,@RequestParam(value = "categoryId",defaultValue = "0")Integer categoryId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
-            //查询子节点信息，不递归
             return categoryService.getChildrenParallelCategory(categoryId);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "get_deep_category.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getCategoryAndDeepChildrenCategory(HttpSession session,@RequestParam(value = "categoryId",defaultValue = "0")Integer categoryId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             //查询子节点信息，递归
             return categoryService.getCategoryAndDeepChildrenById(categoryId);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 }

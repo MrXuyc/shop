@@ -116,7 +116,7 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectCartByUserId" resultMap="BaseResultMap" parameterType="map">
+  <select id="selectCartByUserIdAndProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <include refid="Base_Column_List" />
     from mmall_cart

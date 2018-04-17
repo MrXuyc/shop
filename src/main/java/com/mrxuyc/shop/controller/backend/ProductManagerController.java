@@ -38,87 +38,37 @@ public class ProductManagerController {
     @RequestMapping(value = "product_save.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return productService.saveOrUpdateProduct(product);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "set_sale_status.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId,Integer status){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return productService.setSaleStatus(productId,status);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "detail.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getDetail(HttpSession session, Integer productId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return productService.managerProductDetail(productId);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "list.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getList(HttpSession session,@RequestParam(value = "pageNum" ,defaultValue = "1") int pageNum,@RequestParam(value = "pageSize" ,defaultValue = "10")int pageSize){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return productService.getProductList(pageNum,pageSize);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
+
     }
 
     @RequestMapping(value = "search.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse searchProduct(HttpSession session ,String productName,Integer productId,@RequestParam(value = "pageNum" ,defaultValue = "1") int pageNum,@RequestParam(value = "pageSize" ,defaultValue = "10")int pageSize){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             return productService.searchProduct(productName,productId,pageNum,pageSize);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "upload.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(HttpSession session ,@RequestParam(value = "upload_file",required = false) MultipartFile file,HttpServletRequest request){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorCodeMsg(ResponseCode.NEED_LOGIN.getCode(),"用户未登录，请登录");
-        }
-        //校验一下是否是管理员
-        if(userService.checkAdminRole(user).isSuccess()){
             //本地文件路径，上传到ftp会删除
             String path=request.getSession().getServletContext().getRealPath("upload");
             String targetFileName=fileService.upload(file,path);
@@ -127,9 +77,6 @@ public class ProductManagerController {
             fileMap.put("uri",targetFileName);
             fileMap.put("url",url);
             return ServerResponse.createBySuccess(fileMap);
-        }else{
-            return ServerResponse.createByErrorMsg("无权限操作，需要管理员操作！");
-        }
     }
 
     @RequestMapping(value = "richtext_img_upload.do",method = RequestMethod.POST)

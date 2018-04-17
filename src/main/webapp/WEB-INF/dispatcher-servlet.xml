@@ -30,6 +30,27 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <!--  使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求   -->
+
+        <mvc:interceptor>
+            <mvc:mapping path="/manager/**"/>
+            <mvc:exclude-mapping path="/manager/product/richtext_img_upload.do"/>
+            <mvc:exclude-mapping path="/manager/user/login.do"/>
+            <bean id="managerHandlerInterceptor" class="com.mrxuyc.shop.interceptor.ManagerHandlerInterceptor">
+               <property name="userService" ref="userService"/>
+            </bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/cart/**"/>
+            <mvc:mapping path="/order/**"/>
+            <mvc:mapping path="/shipping/**"/>
+            <mvc:exclude-mapping path="/cart/get_cart_product_count.do"/>
+            <bean id="portalHandlerInterceptor" class="com.mrxuyc.shop.interceptor.PortalHandlerInterceptor">
+                <property name="userService" ref="userService"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!-- 文件上传 -->

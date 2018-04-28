@@ -6,7 +6,7 @@ import com.mrxuyc.shop.vo.CartVo;
 public interface ICartService {
     ServerResponse addCart(Integer userId, Integer productId, Integer count);
 
-    ServerResponse<CartVo> updateCart(Integer userId, Integer productId, Integer count);
+    ServerResponse<CartVo> updateCart(Integer userId, Integer productId, Integer count) ;
 
     ServerResponse<CartVo> deleteCartProduct(Integer userId, String productIds);
 

@@ -20,7 +20,7 @@ public final class ResponseWriteUtil {
     public static void sendJsonMessage(HttpServletResponse response, Object obj) throws Exception {
         response.setContentType("application/json; charset=utf-8");
         PrintWriter writer = response.getWriter();
-        writer.print(JsonUtil.toJson(obj));
+        writer.print(GsonUtil.toJson(obj));
         writer.close();
         response.flushBuffer();
     }
